@@ -5,7 +5,7 @@ public class PociskM4 extends Pocisk{
 	double wsp = 0.0114; // wspolcczynnik straty energii kinetycznej
 	
 	// konstruktor klasy PociskAK
-	PociskM4(double masa, double x, double y, double z) {
+	public PociskM4(double masa, double x, double y, double z) {
 		super(masa, x, y, z);
 	}
 	// metoda symulujaca lot pocisku na odleglosci 1 metra

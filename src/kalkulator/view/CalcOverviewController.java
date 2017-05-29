@@ -11,6 +11,8 @@ import javafx.scene.control.Alert.AlertType;
 import kalkulator.MainApp;
 import kalkulator.model.Pocisk;
 import kalkulator.model.PociskAK;
+import kalkulator.model.PociskM4;
+import kalkulator.model.PociskPneumatyczny;
 
 public class CalcOverviewController {
 
@@ -81,7 +83,7 @@ public class CalcOverviewController {
 				
 				XYChart.Series series = new XYChart.Series();
 				
-				series.setName("Energia kinetyczna");
+				series.setName("AK-47, "+m+"g, Vo="+m+"m, Ho="+poz+"m");
 				
 				double wsp=m/v;
 				
@@ -89,9 +91,8 @@ public class CalcOverviewController {
 				{
 					ak.simulate();
 					energia[i]=ak.Ek;
-					poz=poz-wsp*i;
+					poz=poz-wsp*i-0.011;
 					series.getData().add(new XYChart.Data(String.valueOf(i), poz));
-					System.out.println(energia[i]);
 				}
 				wykres.setTitle("Wykres energii kinetycznej pocisku AK-47");
 				wykres.getData().addAll(series);
@@ -99,7 +100,7 @@ public class CalcOverviewController {
 			else
 	    	{
 	    		// nic nie zaznaczono
-	    		Alert alert = new Alert(AlertType.WARNING);
+	    		Alert alert = new Alert(Alert.AlertType.WARNING);
 	    		alert.initOwner(mainApp.getPrimaryStage());
 	            alert.setTitle("Błąd");
 	            alert.setContentText("Proszę wprowadzić wszystkie parametry pocisku.");
@@ -110,11 +111,87 @@ public class CalcOverviewController {
 			break;
 		// m4
 		case 1:
-			System.out.println(wybor);
+			if(!masa.getText().isEmpty() &&
+					!pozycja.getText().isEmpty() &&
+					!predkosc.getText().isEmpty())
+			{
+				double m = Double.valueOf(masa.getText());
+				double poz = Double.valueOf(pozycja.getText());
+				double v = Double.valueOf(predkosc.getText());
+				
+				Pocisk m4 = new PociskM4(m, 0, poz, 0);
+				
+				m4.shot(v);
+				double []energia = new double[50];
+				
+				XYChart.Series series = new XYChart.Series();
+				
+				series.setName("M4, "+m+"g, Vo="+m+"m, Ho="+poz+"m");
+				
+				double wsp=m/v;
+				
+				for(int i=0; i<50; i++)
+				{
+					m4.simulate();
+					energia[i]=m4.Ek;
+					poz=poz-wsp*i-0.015;
+					series.getData().add(new XYChart.Data(String.valueOf(i), poz));
+				}
+				wykres.setTitle("Wykres energii kinetycznej pocisku M4");
+				wykres.getData().addAll(series);
+			}
+			else
+	    	{
+	    		// nic nie zaznaczono
+	    		Alert alert = new Alert(Alert.AlertType.WARNING);
+	    		alert.initOwner(mainApp.getPrimaryStage());
+	            alert.setTitle("Błąd");
+	            alert.setContentText("Proszę wprowadzić wszystkie parametry pocisku.");
+
+	            alert.showAndWait();
+	    	}
 			break;
 		// pneumatyczna
 		case 2:
-			System.out.println(wybor);
+			if(!masa.getText().isEmpty() &&
+					!pozycja.getText().isEmpty() &&
+					!predkosc.getText().isEmpty())
+			{
+				double m = Double.valueOf(masa.getText());
+				double poz = Double.valueOf(pozycja.getText());
+				double v = Double.valueOf(predkosc.getText());
+				
+				Pocisk pn = new PociskPneumatyczny(m, 0, poz, 0);
+				
+				pn.shot(v);
+				double []energia = new double[50];
+				
+				XYChart.Series series = new XYChart.Series();
+				
+				series.setName("P. pneum., "+m+"g, Vo="+m+"m, Ho="+poz+"m");
+				
+				double wsp=m/v;
+				
+				for(int i=0; i<50; i++)
+				{
+					pn.simulate();
+					energia[i]=pn.Ek;
+					poz=poz-wsp*i-0.025;
+					series.getData().add(new XYChart.Data(String.valueOf(i), poz));
+				}
+				wykres.setTitle("Wykres energii kinetycznej pocisku AK-47");
+				wykres.getData().addAll(series);
+			}
+			else
+	    	{
+	    		// nic nie zaznaczono
+	    		Alert alert = new Alert(Alert.AlertType.WARNING);
+	    		alert.initOwner(mainApp.getPrimaryStage());
+	            alert.setTitle("Błąd");
+	            alert.setContentText("Proszę wprowadzić wszystkie parametry pocisku.");
+
+	            alert.showAndWait();
+	    	}
 			break;
 		}
 		}

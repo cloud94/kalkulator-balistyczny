@@ -5,7 +5,7 @@ public class PociskPneumatyczny extends Pocisk {
 	double wsp = 0.017; // wspolcczynnik straty energii kinetycznej
 
 	// konstruktor klasy PociskPneumatyczny
-	PociskPneumatyczny(double masa, double x, double y, double z) {
+	public PociskPneumatyczny(double masa, double x, double y, double z) {
 		super(masa, x, y, z);
 	}
 	
@@ -13,7 +13,7 @@ public class PociskPneumatyczny extends Pocisk {
 	{
 		this.x++;
 		this.setE(GetNewE(Ek, wsp));
-		System.out.println("Została wywołana metoda simulate z klasy PociskPneumatyczny.");
+		//System.out.println("Została wywołana metoda simulate z klasy PociskPneumatyczny.");
 	}
 	
 	public void shot(double v)
