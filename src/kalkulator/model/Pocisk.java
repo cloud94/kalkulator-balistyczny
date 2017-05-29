@@ -2,11 +2,10 @@ package kalkulator.model;
 
 public abstract class Pocisk implements G1{
 	
-
 	double x, y, z = 0; // polozenie pocisku
 	double Vx, Vy, Vz = 0; // predkosci pocisku
 	double m = 0; // masa pocisku w gramach
-	double Ek = 0; // energia kinetyczna pocisku
+	public double Ek = 0; // energia kinetyczna pocisku
 	
 	// konstruktor ustawiajacy mase pocisku
 	Pocisk(double masa)

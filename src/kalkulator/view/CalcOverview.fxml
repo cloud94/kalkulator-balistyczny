@@ -5,14 +5,14 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kalkulator.view.CalcOverviewController">
    <top>
       <AnchorPane prefHeight="600.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,27 +20,31 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ComboBox id="rodzajPocisku" layoutX="25.0" layoutY="14.0" prefWidth="150.0" />
-                        <Label layoutX="39.0" layoutY="18.0" text="Wybierz rodzaj pocisku" />
+                        <ComboBox fx:id="rodzajPocisku" layoutX="25.0" layoutY="14.0" prefWidth="150.0" />
                         <Text layoutX="15.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Masa pocisku [g]" />
-                        <TextField id="masa" layoutX="142.0" layoutY="44.0" prefHeight="25.0" prefWidth="46.0" />
                         <Text layoutX="14.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość pocz. [m/s]" />
-                        <TextField id="predkosc" layoutX="142.0" layoutY="78.0" prefHeight="25.0" prefWidth="46.0" />
                         <Text layoutX="14.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wysokość pocz. [m]" />
-                        <TextField id="pozycja" layoutX="142.0" layoutY="117.0" prefHeight="25.0" prefWidth="46.0" />
                         <Button layoutX="41.0" layoutY="161.0" mnemonicParsing="false" text="Zapisz konfigurację" />
+                        <TextField fx:id="masa" layoutX="145.0" layoutY="44.0" prefHeight="25.0" prefWidth="46.0" />
+                        <TextField fx:id="predkosc" layoutX="144.0" layoutY="78.0" prefHeight="25.0" prefWidth="49.0" />
+                        <TextField fx:id="pozycja" layoutX="143.0" layoutY="117.0" prefHeight="25.0" prefWidth="49.0" />
                      </children>
                   </AnchorPane>
               </content>
             </TitledPane>
-            <LineChart layoutX="232.0" layoutY="40.0" prefHeight="400.0" prefWidth="754.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0">
+            <LineChart fx:id="wykres" layoutX="232.0" layoutY="40.0" prefHeight="400.0" prefWidth="754.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis fx:id="xAxis" side="BOTTOM" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="wykres" label="Wysokość" side="LEFT" />
+                <NumberAxis fx:id="yAxis" label="Wysokość" side="LEFT" />
               </yAxis>
             </LineChart>
+            <Button layoutX="68.0" layoutY="295.0" mnemonicParsing="false" onAction="#onSymulujClick" prefHeight="41.0" prefWidth="113.0" text="Symuluj">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
