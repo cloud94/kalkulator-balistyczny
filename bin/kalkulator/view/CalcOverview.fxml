@@ -32,11 +32,7 @@
                         <TextField fx:id="pozycja" layoutX="365.0" layoutY="51.0" prefHeight="25.0" prefWidth="49.0" />
                         <Text layoutX="467.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zakres symulacji  [m]" />
                         <TextField fx:id="zakres" layoutX="595.0" layoutY="51.0" prefHeight="25.0" prefWidth="51.0" />
-                        <Button layoutX="44.0" layoutY="43.0" mnemonicParsing="false" onAction="#onSymulujClick" prefHeight="22.0" prefWidth="113.0" text="Symuluj">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
+                        <Button layoutX="15.0" layoutY="51.0" mnemonicParsing="false" onAction="#onWczytajKonfiguracjeClick" text="Wczytaj ostatnią konfigurację" />
                      </children>
                   </AnchorPane>
               </content>
@@ -56,6 +52,11 @@
               </columns>
             </TableView>
             <Button layoutX="73.0" layoutY="455.0" mnemonicParsing="false" onAction="#onZapiszWynikiClick" prefHeight="35.0" prefWidth="133.0" text="Zapisz wyniki do pliku" />
+            <Button layoutX="27.0" layoutY="505.0" mnemonicParsing="false" onAction="#onSymulujClick" prefHeight="63.0" prefWidth="220.0" text="Symuluj" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>

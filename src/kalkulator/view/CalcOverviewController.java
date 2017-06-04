@@ -1,8 +1,10 @@
 package kalkulator.view;
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 import javafx.collections.FXCollections;
@@ -122,7 +124,7 @@ public class CalcOverviewController {
 				
 				// zapis konfiguracji do pliku
 				File file = new File("conf.txt");
-				saveConf(file, m, poz, v, z);
+				saveConf(file);
 				
 				Pocisk ak = new PociskAK(m, 0, poz, 0);
 				
@@ -164,7 +166,7 @@ public class CalcOverviewController {
 				
 				// zapis konfiguracji do pliku
 				File file = new File("conf.txt");
-				saveConf(file, m, poz, v, z);
+				saveConf(file);
 				
 				Pocisk m4 = new PociskM4(m, 0, poz, 0);
 				
@@ -214,7 +216,7 @@ public class CalcOverviewController {
 				
 				// zapis konfiguracji do pliku
 				File file = new File("conf.txt");
-				saveConf(file, m, poz, v, z);
+				saveConf(file);
 				
 				Pocisk pn = new PociskPneumatyczny(m, 0, poz, 0);
 				
@@ -263,12 +265,14 @@ public class CalcOverviewController {
 		
 	}
 	
-	private void saveConf(File file, double m, double poz, double v, double z) {
+	private void saveConf(File file) {
 		// TODO Auto-generated method stub
 		try
 		{
 			BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
 			
+			outWriter.write(String.valueOf(rodzajPocisku.getSelectionModel().getSelectedIndex()));
+			outWriter.newLine();
 			outWriter.write(masa.getText());
 			outWriter.newLine();
 			outWriter.write(pozycja.getText());
@@ -283,6 +287,32 @@ public class CalcOverviewController {
 			System.out.println(e);
 		}
 		
+	}
+	
+	@FXML
+	private void onWczytajKonfiguracjeClick()
+	{
+		try{
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("conf.txt"));
+			
+			String rodzaj = bufferedReader.readLine();
+			String m =  bufferedReader.readLine();
+			String p = bufferedReader.readLine();
+			String predk = bufferedReader.readLine();
+			String z = bufferedReader.readLine();
+			
+			for(int i=0; i<=Integer.valueOf(rodzaj); i++)
+				rodzajPocisku.getSelectionModel().selectNext();
+			masa.setText(m);
+			pozycja.setText(p);
+			predkosc.setText(predk);
+			zakres.setText(z);
+			
+			bufferedReader.close();
+		}catch(Exception e)
+		{
+			System.out.println(e);
+		}
 	}
 
 	@FXML
