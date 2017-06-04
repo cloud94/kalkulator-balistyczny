@@ -6,8 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Lot {
-	private final IntegerProperty x;
-	private final DoubleProperty y;
+	public IntegerProperty x;
+	public DoubleProperty y;
 	
 	public Lot(int x, double y)
 	{

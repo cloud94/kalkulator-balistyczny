@@ -55,6 +55,7 @@
                 <TableColumn fx:id="wysColumn" prefWidth="102.0" text="Wysokość [m]" />
               </columns>
             </TableView>
+            <Button layoutX="73.0" layoutY="455.0" mnemonicParsing="false" onAction="#onZapiszWynikiClick" prefHeight="35.0" prefWidth="133.0" text="Zapisz wyniki do pliku" />
          </children>
       </AnchorPane>
    </top>

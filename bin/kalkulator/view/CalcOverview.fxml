@@ -49,12 +49,13 @@
                 <NumberAxis fx:id="yAxis" label="Wysokość" side="LEFT" />
               </yAxis>
             </LineChart>
-            <TableView fx:id="tabela" layoutX="32.0" layoutY="14.0" prefHeight="559.0" prefWidth="200.0">
+            <TableView fx:id="tabela" layoutX="32.0" layoutY="14.0" prefHeight="437.0" prefWidth="214.0">
               <columns>
                 <TableColumn fx:id="odlColumn" prefWidth="96.0" text="Odległość [m]" />
                 <TableColumn fx:id="wysColumn" prefWidth="102.0" text="Wysokość [m]" />
               </columns>
             </TableView>
+            <Button layoutX="73.0" layoutY="455.0" mnemonicParsing="false" onAction="#onZapiszWynikiClick" prefHeight="35.0" prefWidth="133.0" text="Zapisz wyniki do pliku" />
          </children>
       </AnchorPane>
    </top>

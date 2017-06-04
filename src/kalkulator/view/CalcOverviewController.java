@@ -1,6 +1,10 @@
 package kalkulator.view;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +14,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import kalkulator.MainApp;
 import kalkulator.model.Pocisk;
 import kalkulator.model.Lot;
@@ -54,6 +60,8 @@ public class CalcOverviewController {
     private TableColumn<Lot, Double> wysColumn;
 	
 	private MainApp mainApp;
+	
+	private ObservableList<Lot> shotData= FXCollections.observableArrayList();
 
 	//konstruktor
 	public void Controller(){
@@ -82,7 +90,6 @@ public class CalcOverviewController {
 	@FXML
 	private void onSymulujClick()
 	{
-		ObservableList<Lot> shotData= FXCollections.observableArrayList();
 		
 		if(!rodzajPocisku.getSelectionModel().isEmpty())
 		{
@@ -96,7 +103,6 @@ public class CalcOverviewController {
 					predkosc.getText().isEmpty() ||
 					zakres.getText().isEmpty() || (Integer.valueOf(zakres.getText()) > 49))
 			{
-				System.out.println("fas");
 	    		// nic nie zaznaczono
 	    		Alert alert = new Alert(Alert.AlertType.WARNING);
 	            alert.setTitle("Błąd");
@@ -113,6 +119,10 @@ public class CalcOverviewController {
 				double poz = Double.valueOf(pozycja.getText());
 				double v = Double.valueOf(predkosc.getText());
 				int z = Integer.valueOf(zakres.getText());
+				
+				// zapis konfiguracji do pliku
+				File file = new File("conf.txt");
+				saveConf(file, m, poz, v, z);
 				
 				Pocisk ak = new PociskAK(m, 0, poz, 0);
 				
@@ -152,6 +162,9 @@ public class CalcOverviewController {
 				double v = Double.valueOf(predkosc.getText());
 				double z = Integer.valueOf(zakres.getText());
 				
+				// zapis konfiguracji do pliku
+				File file = new File("conf.txt");
+				saveConf(file, m, poz, v, z);
 				
 				Pocisk m4 = new PociskM4(m, 0, poz, 0);
 				
@@ -199,6 +212,10 @@ public class CalcOverviewController {
 				double v = Double.valueOf(predkosc.getText());
 				double z = Integer.valueOf(zakres.getText());
 				
+				// zapis konfiguracji do pliku
+				File file = new File("conf.txt");
+				saveConf(file, m, poz, v, z);
+				
 				Pocisk pn = new PociskPneumatyczny(m, 0, poz, 0);
 				
 				pn.shot(v);
@@ -244,6 +261,89 @@ public class CalcOverviewController {
             alert.showAndWait();
 		}
 		
+	}
+	
+	private void saveConf(File file, double m, double poz, double v, double z) {
+		// TODO Auto-generated method stub
+		try
+		{
+			BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
+			
+			outWriter.write(masa.getText());
+			outWriter.newLine();
+			outWriter.write(pozycja.getText());
+			outWriter.newLine();
+			outWriter.write(predkosc.getText());
+			outWriter.newLine();
+			outWriter.write(zakres.getText());
+
+			outWriter.close();
+		}catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+	}
+
+	@FXML
+	private void onZapiszWynikiClick()
+	{
+		Stage secondaryStage = new Stage();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Zapisz wyniki do pliku");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		if(shotData.isEmpty())
+		{
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Błąd");
+            alert.setContentText("Tabela wyników jest pusta. Proszę wykonać symulację.");
+
+            alert.showAndWait();
+		}
+		else
+		{
+			File file = fileChooser.showSaveDialog(secondaryStage);
+			if(file!=null)
+			{
+				saveFile(shotData, file);
+			}
+		}
+		
+	}
+
+	private void saveFile(ObservableList<Lot> shotData, File file) {
+		// TODO Auto-generated method stub
+		try
+		{
+			BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
+			
+			String bron = "";
+			
+			switch(rodzajPocisku.getSelectionModel().getSelectedIndex())
+			{
+			case 0: bron = "AK-47"; break;
+			case 1: bron = "M-4"; break;
+			case 2: bron = "Broń pneumatyczna"; break;
+			}
+			
+			outWriter.write("Symulacja pocisku "+bron);
+			outWriter.newLine();
+			outWriter.write("Masa: "+masa.getText()+"g, Prędkość początkowa: "+
+			predkosc.getText()+"m/s, Wysokość początkowa: "+pozycja.getText()+"m");
+			outWriter.newLine();
+			
+			for(Lot lot : shotData)
+			{
+				outWriter.write("Odległość: "+
+			String.valueOf(lot.xProperty().intValue())+"m\tWysokosc: "+
+						String.valueOf(lot.yProperty().doubleValue())+"m");
+				outWriter.newLine();
+			}
+			outWriter.close();
+		}catch(Exception e)
+		{
+			System.out.println(e);
+		}
 	}
 
 }
