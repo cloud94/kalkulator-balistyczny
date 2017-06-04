@@ -8,12 +8,14 @@ public class PociskAK extends Pocisk{
 	public PociskAK(double masa, double x, double y, double z) {
 		super(masa, x , y, z);
 	}
+
+
 	// metoda symulujaca lot pocisku na odleglosci 1 metra
 	@Override public void simulate()
 	{
 		this.x++;
 		this.setE(GetNewE(Ek, wsp));
-		System.out.println("Została wywołana metoda simulate z klasy PociskAK.");
+		//System.out.println("Została wywołana metoda simulate z klasy PociskAK.");
 	}
 	
 	//metoda ustawiajaca polozenie oraz predkosc strzalu

@@ -7,10 +7,17 @@ public abstract class Pocisk implements G1{
 	double m = 0; // masa pocisku w gramach
 	public double Ek = 0; // energia kinetyczna pocisku
 	
-	// konstruktor ustawiajacy mase pocisku
+	// konstruktor ustawiajacy mase pociskut
 	Pocisk(double masa)
 	{
 		this.setM(masa);	
+	}
+	
+	// konstruktor do observableList
+	Pocisk(double x, double y)
+	{
+		this.x=x;
+		this.y=y;
 	}
 	
 	// konstruktor ustawiajacy mase i wspolrzedne pocisku

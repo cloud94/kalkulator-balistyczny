@@ -13,7 +13,7 @@ public class PociskM4 extends Pocisk{
 	{
 		this.x++;
 		this.setE(GetNewE(Ek, wsp));
-		System.out.println("Została wywołana metoda simulate z klasy PociskM4.");
+		//System.out.println("Została wywołana metoda simulate z klasy PociskM4.");
 	}
 	
 	//metoda ustawiajaca polozenie oraz predkosc strzalu
